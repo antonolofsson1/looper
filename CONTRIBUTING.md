@@ -116,3 +116,24 @@ Same three steps, and one more: looper is governed by its own law. Your change
 has to pass the gates it installs in everybody else's project. If that is
 painful, that is the product telling you something, and the finding is worth
 more than the workaround.
+
+## What your fork is under
+
+looper is [`AGPL-3.0-only`](LICENSE), and a fork inherits it.
+
+**Keep your fork to yourself and you owe nothing.** Change every rule, delete
+half of it, run it across your whole company — internal use is not distribution,
+and nobody is entitled to see it.
+
+**Pass it on and the source goes with it.** Ship a modified looper to anyone
+outside your organisation, or host it so others reach it over a network, and
+they get the modified source under this same licence. That is the *send it back*
+above, written as a term rather than a request, and it is the whole reason the
+licence changed on 2026-09-01.
+
+**Running looper over your code does not touch your code.** It reads and
+reports; it is not linked into what you ship. Your source stays yours, under
+whatever licence you like.
+
+There is no CLA. You keep the copyright in what you write, and by opening a pull
+request here you license it under `AGPL-3.0-only` like everything around it.

@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
@@ -286,12 +287,22 @@ test("the lockfile is committed, because the invariant is about resolved version
 
 const PUBLISHABLE: readonly string[] = ["LICENSE", "CONTRIBUTING.md", "README.md"];
 
+const AGPL_3_0 = "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0";
+
 test("everything a public repository owes a reader is present", () => {
   for (const file of PUBLISHABLE) {
     assert.ok(existsSync(join(ROOT, file)), `${file} is missing, and a public fork needs it`);
   }
-  const licence = readFileSync(join(ROOT, "LICENSE"), "utf8");
-  assert.ok(licence.includes("Zero-Clause BSD"), "the licence is not the one package.json declares");
+  const licence = readFileSync(join(ROOT, "LICENSE"));
+  assert.ok(
+    licence.toString("utf8").includes("GNU AFFERO GENERAL PUBLIC LICENSE"),
+    "the licence is not the one package.json declares",
+  );
+  assert.equal(
+    createHash("sha256").update(licence).digest("hex"),
+    AGPL_3_0,
+    "LICENSE is no longer the FSF text byte for byte, and that document says changing it is not allowed. An edit here is not a tidy-up: restore it from https://www.gnu.org/licenses/agpl-3.0.txt.",
+  );
 });
 
 test("a fresh copy of the engine does not silently undo what we changed in it", () => {
@@ -323,7 +334,7 @@ test("looper is still private, which is the one flag left to flip", () => {
   const asObject = held === null || typeof held !== "object" ? {} : held;
   assert.equal(
     Object.getOwnPropertyDescriptor(asObject, "license")?.value,
-    "0BSD",
+    "AGPL-3.0-only",
     "the licence field and the LICENSE file have to agree",
   );
   assert.equal(

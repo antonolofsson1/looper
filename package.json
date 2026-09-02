@@ -2,7 +2,7 @@
   "name": "looper",
   "version": "0.1.0",
   "private": true,
-  "license": "0BSD",
+  "license": "AGPL-3.0-only",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gyllen-ai/looper.git"

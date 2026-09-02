@@ -199,5 +199,18 @@ is making a claim that is expensive to fake.
 
 ## Licence
 
-[Zero-Clause BSD](LICENSE). Use it, change it, ship it, sell it. No attribution
-required, no conditions at all.
+[GNU Affero General Public License v3.0](LICENSE) — `AGPL-3.0-only`.
+Copyright © 2026 Richard Gyllenbern.
+
+**Running looper over your code does not touch your code's licence.** It reads
+your files and reports what it found; it is never linked into anything you ship.
+A compiler does not own its output, and neither does this.
+
+**Changing looper does.** Pass a modified looper on — shipped to anyone, or
+hosted so that others reach it over a network — and the modified source goes
+with it, under this same licence. That is `CONTRIBUTING.md`'s *send it back*
+written as a term instead of a request.
+
+looper's MCP server speaks over stdin and stdout, so the network clause asks
+nothing of anyone running it locally. It is there for whoever puts that surface
+on a port.

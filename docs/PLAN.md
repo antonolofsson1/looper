@@ -2699,8 +2699,18 @@ by the genericity test, applied one directory over.
 judge the tool by until then and a first impression is expensive to redo. What
 does not wait is writing as though it is already public, which costs nothing, and
 the licence, which is needed before the switch and is the one decision here that
-is legal rather than technical: a permissive licence maximises adoption, and an
-explicit patent grant is what corporate legal teams look for.
+is legal rather than technical. **Resolved 2026-08-17 as 0BSD; reversed
+2026-09-01 to `AGPL-3.0-only`.** The first reading was that a permissive licence
+maximises adoption and an explicit patent grant is what corporate legal teams
+look for. 0BSD bought the first and never had the second: no attribution, no
+reciprocity, no patent clause. Copyleft keeps the tool open and turns
+`CONTRIBUTING.md`'s *send it back* from a request into a term, and AGPL over
+GPL because `src/commands/serve.ts` speaks over stdin and stdout today, so the
+network clause asks nothing of anyone until somebody puts that surface on a
+port — dormant, not decorative. **The cost is taken deliberately:** a blanket
+AGPL ban is common in corporate legal, and the adopters who cannot accept it
+are adopters lost. Every version published before 2026-09-01 stays 0BSD, since
+that grant cannot be withdrawn; this governs what ships next.
 
 **What this simplifies.** The return path below was designed around inviting
 people to a private repo, with the report travelling by a mechanism we build. In
@@ -3741,28 +3751,67 @@ false positive gets the tool switched off and then nothing else matters.
 
 ## The licence, and what going public actually needs
 
-**Resolved 2026-08-17: Zero-Clause BSD.** The brief was that anyone can use the
-code exactly as they want, and 0BSD is the only common licence that means that
-without a condition attached: use, copy, modify, distribute, sell, no
-attribution, no notice to retain, nothing to carry.
+**Resolved 2026-08-17 as Zero-Clause BSD. Reversed 2026-09-01 to
+`AGPL-3.0-only`, and both halves are kept, because the first argument is still
+right about the question it was answering.**
 
-MIT was the alternative and it fails the brief by one clause — it requires the
+The first brief was that anyone can use the code exactly as they want, and 0BSD
+is the only common licence that means that without a condition attached: use,
+copy, modify, distribute, sell, no attribution, no notice to retain, nothing to
+carry.
+
+MIT was the alternative and it fails that brief by one clause — it requires the
 copyright notice to travel with every copy, which is a condition however small.
 Apache-2.0 adds a patent grant and two more obligations. Neither is wrong; both
-are more than was asked for.
+were more than was asked for. A second argument settled it: `vendor/rust-law` is
+already 0BSD, so one licence covered the whole repository with zero conditions
+and removed any question about how the two interact.
 
-There is a second argument that settles it here. `vendor/rust-law` is already
-0BSD. Licensing looper the same way makes the whole repository one licence with
-zero conditions, and removes any question about how the two interact — a
-question a reader would otherwise have to answer before using it.
+**What changed the brief.** "Anyone can use the code exactly as they want" and
+"a fork that fixes looper sends the fix back" are two different wishes, and 0BSD
+granted only the first. `CONTRIBUTING.md` had been asking for the second since
+the day it was written, with nothing behind the asking. Copyleft is that
+sentence with something behind it.
+
+`AGPL-3.0-only` rather than GPL-3.0 because `src/commands/serve.ts` reads
+`process.stdin` and writes `process.stdout`: the MCP surface is local, so §13
+asks nothing of anyone running looper today and everything of whoever puts that
+surface on a port later. A clause that costs nothing until the thing it guards
+against exists is the cheap half of a stricter reading.
+
+**What it costs, taken deliberately.** A blanket AGPL ban is common in corporate
+legal, and adopters who cannot accept one are adopters lost — which is the exact
+adoption the 2026-08-17 argument was protecting. The trade is reach for
+reciprocity, made with the loss named rather than discovered later.
+
+**What it does not cost.** Running looper over a codebase does not reach that
+codebase's licence. looper reads files and reports; it is never linked into what
+an adopter ships. The obligation lands only on somebody who modifies looper and
+passes the modified copy on.
+
+**What is not retroactive.** Every version published before 2026-09-01 went out
+under 0BSD and stays there. That grant cannot be withdrawn, and 0BSD required no
+attribution, so a fork taken from any earlier commit owes nothing to anybody.
+This governs what ships next and nothing that has already shipped.
+
+**Compatibility, checked 2026-09-01.** Everything in the tree may be
+redistributed under AGPL-3.0: `vendor/rust-law` is 0BSD, `@babel/parser` is MIT,
+and the vendored crates are MIT, Apache-2.0, Unlicense or dual. Apache-2.0 is
+compatible with the GPLv3 family, which is what makes this legal rather than
+merely intended. Their `LICENSE-MIT` and `LICENSE-APACHE` files stay exactly
+where they are.
 
 **What "ready" required, and what is done.** `LICENSE`, `README.md` and
 `CONTRIBUTING.md` all exist, and a test refuses the suite if any of them goes
-missing. `package.json` declares `0BSD` and a test holds it to the same licence
-the file states. The vendored engine keeps its own `LICENSE` and
-`PROVENANCE.md`, and a test refuses to let either be deleted — 0BSD obliges
-neither, and shipping 3,900 lines of somebody else's work without saying whose
-is a different thing from what the licence permits.
+missing. `package.json` declares `AGPL-3.0-only` and a test holds it to the
+licence the file states — and now to its bytes. `LICENSE` is the FSF's own text,
+sha256 `0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0`,
+pinned in `tests/invariants.test.ts`, because that document says changing it is
+not allowed and an unpinned copy is one careless edit away from unenforceable.
+The vendored engine keeps its own `LICENSE` and `PROVENANCE.md`, and a test
+refuses to let either be deleted — its 0BSD obliges neither, and shipping 3,900
+lines of somebody else's work without saying whose is a different thing from
+what the licence permits.
 
 **The vendored engine is ours to fix. Settled 2026-08-18, and this reverses a
 decision taken twice, so both halves are kept.**
@@ -4639,7 +4688,7 @@ finds them, `CONTRIBUTING.md` points a contributor at the change log because tha
 is the reader who needs it, and `tests/invariants.test.ts` still fails if either
 file is deleted. What went is a pointer on the front page to a subdirectory's
 paperwork — the first screen of a public repository is for what the tool is, and
-0BSD asks for nothing there.
+the engine's 0BSD asks for nothing there.
 
 
 ## C#, the fourth language, and the Razor half nobody was reading
